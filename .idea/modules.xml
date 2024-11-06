@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cosmocalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/cosmocalendar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cosmocalendar/cosmocalendar.cosmocalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/cosmocalendar/cosmocalendar.cosmocalendar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/cosmocalendar.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/cosmocalendar.sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CosmoCalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/CosmoCalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/cosmocalendar/CosmoCalendar.cosmocalendar.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/sample/CosmoCalendar.sample.unitTest.iml" />
     </modules>
   </component>
 </project>
