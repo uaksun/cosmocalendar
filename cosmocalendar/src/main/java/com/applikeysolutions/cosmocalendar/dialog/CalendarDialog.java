@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.applikeysolutions.cosmocalendar.settings.lists.DisabledDaysCriteria;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
+import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.customizablecalendar.R;
 import com.applikeysolutions.cosmocalendar.model.Day;
@@ -225,6 +226,21 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     }
 
     @Override
+    public int getSelectedRangeBackgroundColor() {
+        return calendarView.getSelectedRangeBackgroundColor();
+    }
+
+    @Override
+    public int getSelectedRangeTextColor() {
+        return calendarView.getSelectedRangeTextColor();
+    }
+
+    @Override
+    public List<Holiday> getHolidays() {
+        return calendarView.getHolidays();
+    }
+
+    @Override
     public int getDayTextAppearance() {
         return calendarView.getDayTextAppearance();
     }
@@ -297,6 +313,16 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     @Override
     public void setSelectedDayBackgroundEndColor(int selectedDayBackgroundEndColor) {
         calendarView.setSelectedDayBackgroundEndColor(selectedDayBackgroundEndColor);
+    }
+
+    @Override
+    public void setSelectedRangeBackgroundColor(int selectedRangeBackgroundColor) {
+        calendarView.setSelectedRangeBackgroundColor(selectedRangeBackgroundColor);
+    }
+
+    @Override
+    public void setSelectedRangeTextColor(int selectedRangeBackgroundTextColor) {
+        calendarView.setSelectedRangeTextColor(selectedRangeBackgroundTextColor);
     }
 
     @Override
@@ -382,6 +408,11 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     @Override
     public void setOtherDayVisibility(boolean isVisible) {
         calendarView.setOtherDayVisibility(isVisible);
+    }
+
+    @Override
+    public void setHolidays(List<Holiday> holidays) {
+        calendarView.setHolidays(holidays);
     }
 
     @Override

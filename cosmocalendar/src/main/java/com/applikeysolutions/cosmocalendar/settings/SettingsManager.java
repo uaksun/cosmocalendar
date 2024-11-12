@@ -14,9 +14,11 @@ import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.Connect
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionInterface;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionModel;
+import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 public class SettingsManager implements AppearanceInterface, DateInterface, CalendarListsInterface, SelectionInterface {
@@ -169,6 +171,21 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     }
 
     @Override
+    public int getSelectedRangeBackgroundColor() {
+        return appearanceModel.getSelectedRangeBackgroundColor();
+    }
+
+    @Override
+    public int getSelectedRangeTextColor() {
+        return appearanceModel.getSelectedRangeTextColor();
+    }
+
+    @Override
+    public List<Holiday> getHolidays() {
+        return appearanceModel.getHolidays();
+    }
+
+    @Override
     public int getDayTextAppearance() {
         return appearanceModel.getDayTextAppearance();
     }
@@ -245,6 +262,16 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     @Override
     public void setSelectedDayBackgroundEndColor(int selectedDayBackgroundEndColor) {
         appearanceModel.setSelectedDayBackgroundEndColor(selectedDayBackgroundEndColor);
+    }
+
+    @Override
+    public void setSelectedRangeBackgroundColor(int selectedRangeBackgroundColor) {
+        appearanceModel.setSelectedRangeBackgroundColor(selectedRangeBackgroundColor);
+    }
+
+    @Override
+    public void setSelectedRangeTextColor(int selectedRangeBackgroundTextColor) {
+        appearanceModel.setSelectedRangeTextColor(selectedRangeBackgroundTextColor);
     }
 
     @Override
@@ -330,6 +357,11 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     @Override
     public void setOtherDayVisibility(boolean isVisible) {
         appearanceModel.setOtherDayVisibility(isVisible);
+    }
+
+    @Override
+    public void setHolidays(List<Holiday> holidays) {
+        appearanceModel.setHolidays(holidays);
     }
 
     @Override

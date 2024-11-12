@@ -1,5 +1,9 @@
 package com.applikeysolutions.cosmocalendar.settings.appearance;
 
+import com.applikeysolutions.cosmocalendar.utils.Holiday;
+
+import java.util.List;
+
 public class AppearanceModel implements AppearanceInterface {
 
     //Background color of whole calendar
@@ -73,6 +77,11 @@ public class AppearanceModel implements AppearanceInterface {
 
     //Other day text visibility
     private boolean isOtherDayVisible = true;
+
+    private int selectedRangeBackgroundColor;
+    private int selectedRangeTextColor;
+
+    private List<Holiday> holidays;
 
     /**
      * Orientation of calendar
@@ -200,6 +209,21 @@ public class AppearanceModel implements AppearanceInterface {
     }
 
     @Override
+    public int getSelectedRangeBackgroundColor() {
+        return selectedRangeBackgroundColor;
+    }
+
+    @Override
+    public int getSelectedRangeTextColor() {
+        return selectedRangeTextColor;
+    }
+
+    @Override
+    public List<Holiday> getHolidays() {
+        return holidays;
+    }
+
+    @Override
     public int getDayTextAppearance() {
         return dayTextAppearanceRes;
     }
@@ -272,6 +296,16 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public void setSelectedDayBackgroundEndColor(int selectedDayBackgroundEndColor) {
         this.selectedDayBackgroundEndColor = selectedDayBackgroundEndColor;
+    }
+
+    @Override
+    public void setSelectedRangeBackgroundColor(int selectedRangeBackgroundColor) {
+        this.selectedRangeBackgroundColor = selectedRangeBackgroundColor;
+    }
+
+    @Override
+    public void setSelectedRangeTextColor(int selectedRangeTextColor) {
+        this.selectedRangeTextColor = selectedRangeTextColor;
     }
 
     @Override
@@ -357,5 +391,10 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public void setOtherDayVisibility(boolean isVisible) {
         isOtherDayVisible = isVisible;
+    }
+
+    @Override
+    public void setHolidays(List<Holiday> holidays) {
+        this.holidays = holidays;
     }
 }

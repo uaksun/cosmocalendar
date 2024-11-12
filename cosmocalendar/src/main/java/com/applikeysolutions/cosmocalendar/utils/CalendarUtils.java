@@ -49,6 +49,21 @@ public final class CalendarUtils {
             days.addAll(createDaysOfWeek(firstDisplayedDay));
         }
 
+
+        final Calendar holidayCalendar = Calendar.getInstance();
+        List<String> monthHolidays = new ArrayList<>();
+
+        if (settingsManager.getHolidays() != null) {
+            for (Holiday holiday : settingsManager.getHolidays()) {
+                holidayCalendar.setTime(holiday.date);
+                if (firstDayOfMonthCalendar.get(Calendar.MONTH) == holidayCalendar.get(Calendar.MONTH) &&
+                        firstDayOfMonthCalendar.get(Calendar.YEAR) == holidayCalendar.get(Calendar.YEAR)) {
+
+                    monthHolidays.addAll(holiday.names);
+                }
+            }
+        }
+
         //Create first day of month
         days.add(createDay(firstDisplayedDayCalendar, settingsManager, targetMonth));
 
@@ -59,7 +74,7 @@ public final class CalendarUtils {
         } while (!DateUtils.isSameDayOfMonth(firstDisplayedDayCalendar, end)
                 || !DateUtils.isSameMonth(firstDisplayedDayCalendar, end));
 
-        return new Month(createDay(firstDayOfMonthCalendar, settingsManager, targetMonth), days);
+        return new Month(createDay(firstDayOfMonthCalendar, settingsManager, targetMonth), days, monthHolidays);
     }
 
     private static Day createDay(Calendar calendar, SettingsManager settingsManager, int targetMonth) {

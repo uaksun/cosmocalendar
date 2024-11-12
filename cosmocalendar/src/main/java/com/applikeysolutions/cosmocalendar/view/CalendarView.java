@@ -52,6 +52,7 @@ import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.Connect
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionInterface;
 import com.applikeysolutions.cosmocalendar.utils.CalendarUtils;
+import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.cosmocalendar.utils.ViewIDGenerator;
 import com.applikeysolutions.cosmocalendar.utils.WeekDay;
@@ -180,6 +181,7 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         int selectionBarMonthTextColor = typedArray.getColor(R.styleable.CalendarView_selectionBarMonthTextColor, ContextCompat.getColor(getContext(), R.color.default_selection_bar_month_title_text_color));
         int previousMonthIconRes = typedArray.getResourceId(R.styleable.CalendarView_previousMonthIconRes, R.drawable.ic_chevron_left_gray);
         int nextMonthIconRes = typedArray.getResourceId(R.styleable.CalendarView_nextMonthIconRes, R.drawable.ic_chevron_right_gray);
+        int selectedRangeBackgroundColor = typedArray.getColor(R.styleable.CalendarView_selectedRangeBackgroundColor, ContextCompat.getColor(getContext(), R.color.default_selected_day_background_end_color));
 
         setBackgroundColor(calendarBackgroundColor);
         settingsManager.setCalendarBackgroundColor(calendarBackgroundColor);
@@ -207,6 +209,8 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
         settingsManager.setSelectionType(selectionType);
         settingsManager.setPreviousMonthIconRes(previousMonthIconRes);
         settingsManager.setNextMonthIconRes(nextMonthIconRes);
+        settingsManager.setSelectedRangeBackgroundColor(selectedRangeBackgroundColor);
+        settingsManager.setSelectedRangeTextColor(dayTextColor);
     }
 
     private void handleWeekendDaysAttributes(TypedArray typedArray) {
@@ -947,6 +951,21 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     }
 
     @Override
+    public int getSelectedRangeBackgroundColor() {
+        return settingsManager.getSelectedRangeBackgroundColor();
+    }
+
+    @Override
+    public int getSelectedRangeTextColor() {
+        return settingsManager.getSelectedRangeTextColor();
+    }
+
+    @Override
+    public List<Holiday> getHolidays() {
+        return settingsManager.getHolidays();
+    }
+
+    @Override
     public int getDayTextAppearance() {
         return settingsManager.getDayTextAppearance();
     }
@@ -1031,6 +1050,18 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     @Override
     public void setSelectedDayBackgroundEndColor(int selectedDayBackgroundEndColor) {
         settingsManager.setSelectedDayBackgroundEndColor(selectedDayBackgroundEndColor);
+        update();
+    }
+
+    @Override
+    public void setSelectedRangeBackgroundColor(int selectedRangeBackgroundColor) {
+        settingsManager.setSelectedRangeBackgroundColor(selectedRangeBackgroundColor);
+        update();
+    }
+
+    @Override
+    public void setSelectedRangeTextColor(int selectedRangeBackgroundTextColor) {
+        settingsManager.setSelectedRangeTextColor(selectedRangeBackgroundTextColor);
         update();
     }
 
@@ -1159,6 +1190,11 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     public void setOtherDayVisibility(boolean isVisible) {
         settingsManager.setOtherDayVisibility(isVisible);
         update();
+    }
+
+    @Override
+    public void setHolidays(List<Holiday> holidays) {
+        settingsManager.setHolidays(holidays);
     }
 
     @Override

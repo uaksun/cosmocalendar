@@ -39,6 +39,7 @@
         <attr name="selectedDayBackgroundEndColor" format="color" />
 
         <attr name="currentDayTextColor" format="color" />
+        <attr name="selectedRangeBackgroundColor" format="color" />
         <attr name="currentDayIconRes" format="reference" />
         <attr name="currentDaySelectedIconRes" format="reference" />
 

@@ -2,6 +2,10 @@ package com.applikeysolutions.cosmocalendar.settings.appearance;
 
 import android.support.annotation.StyleRes;
 
+import com.applikeysolutions.cosmocalendar.utils.Holiday;
+
+import java.util.List;
+
 public interface AppearanceInterface {
 
     int getCalendarBackgroundColor();
@@ -48,6 +52,12 @@ public interface AppearanceInterface {
 
     boolean getOtherDayVisibility();
 
+    int getSelectedRangeBackgroundColor();
+
+    int getSelectedRangeTextColor();
+
+    List<Holiday> getHolidays();
+
     @StyleRes
     int getDayTextAppearance();
 
@@ -80,6 +90,10 @@ public interface AppearanceInterface {
     void setSelectedDayBackgroundStartColor(int selectedDayBackgroundStartColor);
 
     void setSelectedDayBackgroundEndColor(int selectedDayBackgroundEndColor);
+
+    void setSelectedRangeBackgroundColor(int selectedRangeBackgroundColor);
+
+    void setSelectedRangeTextColor(int selectedRangeBackgroundTextColor);
 
     void setCurrentDayTextColor(int currentDayTextColor);
 
@@ -114,4 +128,6 @@ public interface AppearanceInterface {
     void setMonthTextAppearance(@StyleRes int monthTextAppearance);
 
     void setOtherDayVisibility(boolean isVisible);
+
+    void setHolidays(List<Holiday> holidays);
 }

@@ -10,6 +10,7 @@ public class Month {
 
     private List<Day> days;
     private Day firstDay;
+    private List<String> holidays;
 
     public Month(Day firstDay, List<Day> days) {
         this.days = days;
@@ -26,6 +27,20 @@ public class Month {
 
     public List<Day> getDays() {
         return days;
+    }
+
+    public List<String> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(List<String> holidays) {
+        this.holidays = holidays;
+    }
+
+    public Month(Day firstDay, List<Day> days, List<String> holidays) {
+        this.days = days;
+        this.firstDay = firstDay;
+        this.holidays = holidays;
     }
 
     /**

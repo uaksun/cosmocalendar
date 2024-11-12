@@ -82,9 +82,12 @@ public class CircleAnimationTextView extends AppCompatTextView {
         if (selectionState != null) {
             switch (selectionState) {
                 case START_RANGE_DAY:
+                    drawRectangle(canvas);
+                    drawCircle(canvas);
+                    break;
                 case END_RANGE_DAY:
                     drawRectangle(canvas);
-                    // drawCircleUnder(canvas);
+                    drawCircleUnder(canvas);
                     drawCircle(canvas);
                     break;
 
@@ -131,7 +134,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
             createCirclePaint();
         }
 
-        final int diameter = getWidth() - DEFAULT_PADDING * 2;
+        final int diameter = (int) (getWidth() - DEFAULT_PADDING * 2.3);
         final int diameterProgress = animationProgress * diameter / MAX_PROGRESS;
 
         setBackgroundColor(Color.TRANSPARENT);
@@ -142,8 +145,8 @@ public class CircleAnimationTextView extends AppCompatTextView {
         if (circleUnderPaint == null || stateChanged) {
             createCircleUnderPaint();
         }
-        final int diameter = getWidth() - DEFAULT_PADDING * 2;
-        canvas.drawCircle(getWidth() / 2, getWidth() / 2, diameter / 2, circleUnderPaint);
+        final int diameter = (int)(getWidth() - DEFAULT_PADDING * 2.1);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, diameter / 2, circleUnderPaint);
     }
 
     private void createCirclePaint() {
@@ -170,7 +173,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
 
     private void createRectanglePaint() {
         rectanglePaint = new Paint();
-        rectanglePaint.setColor(calendarView.getSelectedDayBackgroundColor());
+        rectanglePaint.setColor(calendarView.getSelectedRangeBackgroundColor());
         rectanglePaint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
@@ -186,7 +189,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
 
     private void createBackgroundRectanglePaint() {
         backgroundRectanglePaint = new Paint();
-        backgroundRectanglePaint.setColor(calendarView.getSelectedDayBackgroundColor());
+        backgroundRectanglePaint.setColor(calendarView.getSelectedRangeBackgroundColor());
         backgroundRectanglePaint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
@@ -226,15 +229,16 @@ public class CircleAnimationTextView extends AppCompatTextView {
     }
 
     private Rect getRectangleForState() {
+        int additionalPadding = 11;
         switch (selectionState) {
             case START_RANGE_DAY:
-                return new Rect(getWidth() / 2, DEFAULT_PADDING, getWidth(), getHeight() - DEFAULT_PADDING);
+                return new Rect(getWidth() / 2, DEFAULT_PADDING - additionalPadding, getWidth(), getHeight() - DEFAULT_PADDING + additionalPadding);
 
             case END_RANGE_DAY:
-                return new Rect(0, DEFAULT_PADDING, getWidth() / 2, getHeight() - DEFAULT_PADDING);
+                return new Rect(0, DEFAULT_PADDING - additionalPadding, getWidth() / 2, getHeight() - DEFAULT_PADDING + additionalPadding);
 
             case RANGE_DAY:
-                return new Rect(0, DEFAULT_PADDING, getWidth(), getHeight() - DEFAULT_PADDING);
+                return new Rect(0, DEFAULT_PADDING - additionalPadding, getWidth(), getHeight() - DEFAULT_PADDING + additionalPadding);
 
             default:
                 return null;

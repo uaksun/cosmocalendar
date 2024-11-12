@@ -3,6 +3,7 @@ package com.applikeysolutions.cosmocalendar.adapter.viewholder;
 import android.content.res.Resources;
 import android.support.v4.widget.TextViewCompat;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition;
 import com.applikeysolutions.cosmocalendar.utils.CalendarUtils;
@@ -19,9 +20,12 @@ public class DayHolder extends BaseDayHolder {
     private CircleAnimationTextView ctvDay;
     private BaseSelectionManager selectionManager;
 
+    private ImageView ivConnectedDay;
+
     public DayHolder(View itemView, CalendarView calendarView) {
         super(itemView, calendarView);
-        ctvDay = (CircleAnimationTextView) itemView.findViewById(R.id.tv_day_number);
+        ctvDay = itemView.findViewById(R.id.tv_day_number);
+        ivConnectedDay = itemView.findViewById(R.id.tv_connectedDayIcon);
     }
 
     public void bind(Day day, BaseSelectionManager selectionManager) {
@@ -74,7 +78,7 @@ public class DayHolder extends BaseDayHolder {
             if (day.isDisabled()) {
                 ctvDay.setTextColor(day.getConnectedDaysDisabledTextColor());
             } else {
-                ctvDay.setTextColor(day.getConnectedDaysSelectedTextColor());
+                ctvDay.setTextColor(calendarView.getSelectedDayTextColor());
             }
             addConnectedDayIcon(true);
         } else {
@@ -85,6 +89,12 @@ public class DayHolder extends BaseDayHolder {
         SelectionState state;
         if (selectionManager instanceof RangeSelectionManager) {
             state = ((RangeSelectionManager) selectionManager).getSelectedState(day);
+            if (state == SelectionState.END_RANGE_DAY) {
+                ctvDay.setTextColor(calendarView.getSelectedDayBackgroundStartColor());
+            }
+            if (state == SelectionState.RANGE_DAY){
+                ctvDay.setTextColor(calendarView.getSelectedRangeTextColor());
+            }
         } else {
             state = SelectionState.SINGLE_DAY;
         }
@@ -105,6 +115,10 @@ public class DayHolder extends BaseDayHolder {
                 ctvDay.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, isSelected
                         ? calendarView.getConnectedDaySelectedIconRes()
                         : calendarView.getConnectedDayIconRes());
+                break;
+
+            case ConnectedDayIconPosition.TOP_RIGHT:
+                ivConnectedDay.setImageDrawable(calendarView.getContext().getResources().getDrawable(calendarView.getConnectedDayIconRes()));
                 break;
         }
     }
