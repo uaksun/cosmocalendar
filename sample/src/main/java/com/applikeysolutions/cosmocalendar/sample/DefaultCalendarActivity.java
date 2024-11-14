@@ -1,11 +1,13 @@
 package com.applikeysolutions.cosmocalendar.sample;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,12 +20,21 @@ import com.applikeysolutions.cosmocalendar.selection.criteria.WeekDayCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.CurrentMonthCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.NextMonthCriteria;
 import com.applikeysolutions.cosmocalendar.selection.criteria.month.PreviousMonthCriteria;
+import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition;
+import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
+import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
+import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.cosmocalendar.view.CalendarView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class DefaultCalendarActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -53,6 +64,75 @@ public class DefaultCalendarActivity extends AppCompatActivity implements RadioG
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
         ((RadioGroup) findViewById(R.id.rg_orientation)).setOnCheckedChangeListener(this);
         ((RadioGroup) findViewById(R.id.rg_selection_type)).setOnCheckedChangeListener(this);
+
+
+        //Set days you want to connect
+        Calendar calendar = Calendar.getInstance();
+        Set<Long> days = new TreeSet<>();
+        Calendar cal = Calendar.getInstance(); //current date and time
+        cal.add(Calendar.DAY_OF_MONTH, 1); //add a day
+        cal.set(Calendar.HOUR_OF_DAY, 23); //set hour to last hour
+        cal.set(Calendar.MINUTE, 59); //set minutes to last minute
+        cal.set(Calendar.SECOND, 59); //set seconds to last second
+        cal.set(Calendar.MILLISECOND, 999); //set milliseconds to last millisecond
+        long millis = cal.getTimeInMillis();
+
+
+        days.add(millis);
+        days.add(calendar.getTimeInMillis());
+        cal.add(Calendar.DAY_OF_MONTH, 2);
+        days.add(cal.getTimeInMillis());
+        cal.add(Calendar.DAY_OF_MONTH, 25);
+        Date date = new Date();
+        date.setTime(cal.getTimeInMillis());
+        days.add(date.getTime());
+
+        int textColor = getResources().getColor(R.color.black);
+        int selectedTextColor = getResources().getColor(R.color.black);
+        int disabledTextColor = Color.parseColor("#2957CC");
+        ConnectedDays connectedDays = new ConnectedDays(days, textColor);
+
+
+        calendarView.setConnectedDayIconPosition(ConnectedDayIconPosition.TOP_RIGHT);
+        calendarView.setConnectedDayIconRes(R.drawable.blue_circle_holiday);
+
+        calendarView.setSelectedDayBackgroundColor(getResources().getColor(R.color.selected_blue));
+        calendarView.setSelectedDayBackgroundStartColor(getResources().getColor(R.color.selected_blue));
+        calendarView.setSelectedDayBackgroundEndColor(getResources().getColor(R.color.textColor));
+        calendarView.setSelectedRangeBackgroundColor(getResources().getColor(R.color.selected_blue_soft));
+
+
+        //Holiday kısmı
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+        // Test verisi olarak Holiday listesi oluşturuluyor
+        List<Holiday> holidays = new ArrayList<>();
+        List<BackgroundDeterminator> determinators = new ArrayList<>();
+
+
+        try {
+            holidays.add(new Holiday(dateFormat.parse("2024-11-10T00:00:00"), Arrays.asList("15 Kasım - Kurban Bayramı Arefesi","test")));
+            holidays.add(new Holiday(dateFormat.parse("2024-12-11T00:00:00"), Arrays.asList("16-17-18 - Kasım Kurban Bayramı")));
+            holidays.add(new Holiday(dateFormat.parse("2025-01-11T00:00:00"), Arrays.asList("Yılbaşı")));
+
+            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-21T00:00:00"),getResources().getColor(R.color.green)));
+            determinators.add(new BackgroundDeterminator(dateFormat.parse("2024-11-22T00:00:00"),getResources().getColor(R.color.green)));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("testsize", holidays.size()+ "");
+        Log.d("testsizedeterminators", determinators.size()+ "");
+
+
+
+        calendarView.setHolidays(holidays);
+        calendarView.setDeterminators(determinators);
+
+
+        calendarView.addConnectedDays(connectedDays);
     }
 
     private void createCriterias() {
