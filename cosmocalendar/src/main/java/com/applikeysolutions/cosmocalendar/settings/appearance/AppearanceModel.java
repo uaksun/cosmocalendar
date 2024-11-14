@@ -1,5 +1,6 @@
 package com.applikeysolutions.cosmocalendar.settings.appearance;
 
+import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
 import com.applikeysolutions.cosmocalendar.utils.Holiday;
 
 import java.util.List;
@@ -96,6 +97,8 @@ public class AppearanceModel implements AppearanceInterface {
 
     //Defines if we need to display week day title for whole calendar
     private boolean showDaysOfWeekTitle;
+
+    private List<BackgroundDeterminator> determinators;
 
 
     @Override
@@ -221,6 +224,11 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public List<Holiday> getHolidays() {
         return holidays;
+    }
+
+    @Override
+    public List<BackgroundDeterminator> getDeterminators() {
+        return determinators;
     }
 
     @Override
@@ -396,5 +404,10 @@ public class AppearanceModel implements AppearanceInterface {
     @Override
     public void setHolidays(List<Holiday> holidays) {
         this.holidays = holidays;
+    }
+
+    @Override
+    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+        this.determinators = determinators;
     }
 }

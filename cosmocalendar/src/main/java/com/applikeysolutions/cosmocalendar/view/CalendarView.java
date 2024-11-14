@@ -51,6 +51,7 @@ import com.applikeysolutions.cosmocalendar.settings.lists.DisabledDaysCriteria;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionInterface;
+import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
 import com.applikeysolutions.cosmocalendar.utils.CalendarUtils;
 import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
@@ -966,6 +967,11 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     }
 
     @Override
+    public List<BackgroundDeterminator> getDeterminators() {
+        return settingsManager.getDeterminators();
+    }
+
+    @Override
     public int getDayTextAppearance() {
         return settingsManager.getDayTextAppearance();
     }
@@ -1195,6 +1201,11 @@ public class CalendarView extends RelativeLayout implements OnDaySelectedListene
     @Override
     public void setHolidays(List<Holiday> holidays) {
         settingsManager.setHolidays(holidays);
+    }
+
+    @Override
+    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+        settingsManager.setDeterminators(determinators);
     }
 
     @Override

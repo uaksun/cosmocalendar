@@ -96,6 +96,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
                     break;
 
                 case SINGLE_DAY:
+                case SINGLE_DAY_DETERMINATE:
                     //Animation not started yet
                     //progress not MAX_PROGRESS
                     boolean condition1 = !animationStarted
@@ -221,6 +222,14 @@ public class CircleAnimationTextView extends AppCompatTextView {
 
                 case SINGLE_DAY:
                     circleColor = calendarView.getSelectedDayBackgroundColor();
+                    if (day.isDeterminate()){
+                        circleColor = day.getDeterminator().getColor();
+                    }
+                    setBackgroundColor(Color.TRANSPARENT);
+                    break;
+
+                case SINGLE_DAY_DETERMINATE:
+                    circleColor = day.getDeterminator().getColor();
                     setBackgroundColor(Color.TRANSPARENT);
                     break;
             }
@@ -248,7 +257,7 @@ public class CircleAnimationTextView extends AppCompatTextView {
     private void animateView() {
         CircularFillAnimation animation = new CircularFillAnimation();
 //        animation.setInterpolator(new BounceInterpolator()); //just for fun
-        animation.setDuration(SELECTION_ANIMATION_DURATION);
+        //animation.setDuration(SELECTION_ANIMATION_DURATION);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

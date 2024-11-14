@@ -5,5 +5,6 @@ public enum SelectionState {
     START_RANGE_DAY,
     END_RANGE_DAY,
     RANGE_DAY,
-    SINGLE_DAY
+    SINGLE_DAY,
+    SINGLE_DAY_DETERMINATE
 }

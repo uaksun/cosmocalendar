@@ -69,6 +69,11 @@ public class MonthHolder extends RecyclerView.ViewHolder {
 
     public void addHolidayView(String holidayName) {
 
+        View holidayView = LayoutInflater.from(monthHolidayContainer.getContext()).inflate(R.layout.view_holidays, monthHolidayContainer, false);
+
+        TextView holidayTextView = holidayView.findViewById(R.id.txtHolidayName);
+        ImageView ivHolidayIcon = holidayView.findViewById(R.id.ivHolidayViewImage);
+
         holidayTextView.setText(holidayName);
         ivHolidayIcon.setImageResource(appearanceModel.getConnectedDayIconRes());
 

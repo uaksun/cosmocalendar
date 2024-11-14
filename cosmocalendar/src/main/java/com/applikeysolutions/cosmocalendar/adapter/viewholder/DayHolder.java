@@ -40,6 +40,10 @@ public class DayHolder extends BaseDayHolder {
             unselect(day);
         }
 
+        if (day.isDeterminate()){
+            select(day);
+        }
+
         if (day.isCurrent()) {
             addCurrentDayIcon(isSelected);
             //ctvDay.setTextColor(calendarView.getCurrentDayTextColor());
@@ -95,8 +99,21 @@ public class DayHolder extends BaseDayHolder {
             if (state == SelectionState.RANGE_DAY){
                 ctvDay.setTextColor(calendarView.getSelectedRangeTextColor());
             }
+            if (state == SelectionState.SINGLE_DAY){
+                ctvDay.setTextColor(calendarView.getDayTextColor());
+            }
+
         } else {
-            state = SelectionState.SINGLE_DAY;
+            if (day.isDeterminate()) {
+                state = SelectionState.SINGLE_DAY_DETERMINATE;
+                if (selectionManager.isDaySelected(day)){
+                    ctvDay.setTextColor(calendarView.getSelectedDayTextColor());
+                }else {
+                    ctvDay.setTextColor(calendarView.getDayTextColor());
+                }
+            } else {
+                state = SelectionState.SINGLE_DAY;
+            }
         }
         animateDay(state, day);
     }
@@ -131,12 +148,15 @@ public class DayHolder extends BaseDayHolder {
                 ctvDay.showAsStartCircle(calendarView, false);
             } else if (day.isSelectionCircleDrawed() && state == SelectionState.END_RANGE_DAY) {
                 ctvDay.showAsEndCircle(calendarView, false);
-            } else {
+            } else if( state == SelectionState.SINGLE_DAY_DETERMINATE){
+                ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
+            }else {
                 ctvDay.setSelectionStateAndAnimate(state, calendarView, day);
             }
         } else {
             switch (state) {
                 case SINGLE_DAY:
+                case SINGLE_DAY_DETERMINATE:
                     if (day.isSelectionCircleDrawed()) {
                         ctvDay.showAsSingleCircle(calendarView);
                     } else {

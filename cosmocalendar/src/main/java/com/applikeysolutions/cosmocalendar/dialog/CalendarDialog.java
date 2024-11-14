@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.applikeysolutions.cosmocalendar.settings.lists.DisabledDaysCriteria;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays;
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
+import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
 import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 import com.applikeysolutions.customizablecalendar.R;
@@ -241,6 +242,11 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     }
 
     @Override
+    public List<BackgroundDeterminator> getDeterminators() {
+        return calendarView.getDeterminators();
+    }
+
+    @Override
     public int getDayTextAppearance() {
         return calendarView.getDayTextAppearance();
     }
@@ -413,6 +419,11 @@ public class CalendarDialog extends Dialog implements View.OnClickListener,
     @Override
     public void setHolidays(List<Holiday> holidays) {
         calendarView.setHolidays(holidays);
+    }
+
+    @Override
+    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+        calendarView.setDeterminators(determinators);
     }
 
     @Override

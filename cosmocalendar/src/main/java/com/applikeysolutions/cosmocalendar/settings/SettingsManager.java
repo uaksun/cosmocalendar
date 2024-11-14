@@ -14,6 +14,7 @@ import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.Connect
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDaysManager;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionInterface;
 import com.applikeysolutions.cosmocalendar.settings.selection.SelectionModel;
+import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
 import com.applikeysolutions.cosmocalendar.utils.Holiday;
 import com.applikeysolutions.cosmocalendar.utils.SelectionType;
 
@@ -183,6 +184,11 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     @Override
     public List<Holiday> getHolidays() {
         return appearanceModel.getHolidays();
+    }
+
+    @Override
+    public List<BackgroundDeterminator> getDeterminators() {
+        return appearanceModel.getDeterminators();
     }
 
     @Override
@@ -362,6 +368,11 @@ public class SettingsManager implements AppearanceInterface, DateInterface, Cale
     @Override
     public void setHolidays(List<Holiday> holidays) {
         appearanceModel.setHolidays(holidays);
+    }
+
+    @Override
+    public void setDeterminators(List<BackgroundDeterminator> determinators) {
+        appearanceModel.setDeterminators(determinators);
     }
 
     @Override

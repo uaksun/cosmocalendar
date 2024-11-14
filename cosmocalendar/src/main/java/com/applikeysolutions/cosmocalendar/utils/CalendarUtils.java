@@ -19,8 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 public final class CalendarUtils {
@@ -64,22 +66,44 @@ public final class CalendarUtils {
             }
         }
 
+        Map<String, BackgroundDeterminator> determinatorMap = new HashMap<>();
+        List<BackgroundDeterminator> determinatorList = settingsManager.getDeterminators();
+        Calendar determinatorCalendar = Calendar.getInstance();
+        if (determinatorList != null) {
+            for (BackgroundDeterminator determinatorItem: determinatorList) {
+                determinatorCalendar.setTime(determinatorItem.date);
+                String key = generateDayKey(determinatorCalendar);
+                determinatorMap.put(key, determinatorItem);
+            }
+        }
+
         //Create first day of month
-        days.add(createDay(firstDisplayedDayCalendar, settingsManager, targetMonth));
+        days.add(createDay(firstDisplayedDayCalendar, settingsManager, targetMonth,determinatorMap));
 
         //Create other days in month
         do {
             DateUtils.addDay(firstDisplayedDayCalendar);
-            days.add(createDay(firstDisplayedDayCalendar, settingsManager, targetMonth));
+            days.add(createDay(firstDisplayedDayCalendar, settingsManager, targetMonth,determinatorMap));
         } while (!DateUtils.isSameDayOfMonth(firstDisplayedDayCalendar, end)
                 || !DateUtils.isSameMonth(firstDisplayedDayCalendar, end));
 
-        return new Month(createDay(firstDayOfMonthCalendar, settingsManager, targetMonth), days, monthHolidays);
+        return new Month(createDay(firstDayOfMonthCalendar, settingsManager, targetMonth,determinatorMap), days, monthHolidays);
     }
 
-    private static Day createDay(Calendar calendar, SettingsManager settingsManager, int targetMonth) {
+    private static String generateDayKey(Calendar calendar) {
+        return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    private static Day createDay(Calendar calendar, SettingsManager settingsManager, int targetMonth, Map<String,BackgroundDeterminator> determinatorMap) {
         Day day = new Day(calendar);
         day.setBelongToMonth(calendar.get(Calendar.MONTH) == targetMonth);
+
+        String key = generateDayKey(calendar);
+        if (determinatorMap.containsKey(key)){
+            day.setDeterminate(true);
+            day.setDeterminator(determinatorMap.get(key));
+        }
+
         CalendarUtils.setDay(day, settingsManager);
         return day;
     }

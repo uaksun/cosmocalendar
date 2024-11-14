@@ -1,6 +1,7 @@
 package com.applikeysolutions.cosmocalendar.model;
 
 import com.applikeysolutions.cosmocalendar.selection.SelectionState;
+import com.applikeysolutions.cosmocalendar.utils.BackgroundDeterminator;
 import com.applikeysolutions.cosmocalendar.utils.DateUtils;
 
 import java.util.Calendar;
@@ -25,6 +26,10 @@ public class Day {
     private SelectionState selectionState;
     private boolean isSelectionCircleDrawed;
 
+    private boolean isDeterminate = false;
+
+    private BackgroundDeterminator determinator;
+
     public Day(Date date) {
         this.calendar = DateUtils.getCalendar(date);
         this.current = DateUtils.isCurrentDate(date);
@@ -37,6 +42,22 @@ public class Day {
         this.calendar = tempCalendar;
         this.current = DateUtils.isCurrentDate(calendar.getTime());
         this.selected = false;
+    }
+
+    public boolean isDeterminate() {
+        return isDeterminate;
+    }
+
+    public BackgroundDeterminator getDeterminator() {
+        return determinator;
+    }
+
+    public void setDeterminator(BackgroundDeterminator determinator) {
+        this.determinator = determinator;
+    }
+
+    public void setDeterminate(boolean determinate) {
+        isDeterminate = determinate;
     }
 
     public boolean isBelongToMonth() {
